@@ -337,7 +337,12 @@ fn iterm2_from_env() -> Option<ProtocolType> {
     None
 }
 
-#[cfg(not(windows))]
+#[cfg(not(any(unix, windows)))]
+fn enable_raw_mode() -> Result<impl FnOnce() -> Result<()>> {
+    Ok(move || Ok(()))
+}
+
+#[cfg(unix)]
 fn enable_raw_mode() -> Result<impl FnOnce() -> Result<()>> {
     use rustix::termios::{self, LocalModes, OptionalActions};
 
@@ -402,7 +407,7 @@ fn enable_raw_mode() -> Result<impl FnOnce() -> Result<()>> {
     })
 }
 
-#[cfg(not(windows))]
+#[cfg(unix)]
 fn font_size_fallback() -> Option<FontSize> {
     use rustix::termios::{self, Winsize};
 
@@ -420,7 +425,7 @@ fn font_size_fallback() -> Option<FontSize> {
     Some((x / cols, y / rows))
 }
 
-#[cfg(windows)]
+#[cfg(not(unix))]
 fn font_size_fallback() -> Option<FontSize> {
     None
 }

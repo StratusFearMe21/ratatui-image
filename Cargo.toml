@@ -34,6 +34,7 @@ rand = { version = "^0.8.5" }
 ratatui = { version = "^0.30.0", default-features = false, features = [] }
 thiserror = { version = "1.0.59" }
 tokio = { version = "1.45.1", default-features = false, optional = true, features = ["sync"]}
+getrandom = { version = "0.2.16", features = ["js"] }
 
 [target.'cfg(unix)'.dependencies]
 rustix = { version = "^0.38.4", features = ["stdio", "termios", "fs"] }

@@ -16,7 +16,7 @@ pub enum Errors {
     Image(#[from] image::error::ImageError),
 }
 
-#[cfg(not(windows))]
+#[cfg(unix)]
 impl From<rustix::io::Errno> for Errors {
     fn from(errno: rustix::io::Errno) -> Self {
         Errors::Io(std::io::Error::from(errno))
