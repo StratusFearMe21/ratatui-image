@@ -35,7 +35,7 @@ ratatui = { version = "^0.30.0", default-features = false, features = [] }
 thiserror = { version = "1.0.59" }
 tokio = { version = "1.45.1", default-features = false, optional = true, features = ["sync"]}
 
-[target.'cfg(not(windows))'.dependencies]
+[target.'cfg(unix)'.dependencies]
 rustix = { version = "^0.38.4", features = ["stdio", "termios", "fs"] }
 
 [target.'cfg(windows)'.dependencies]
